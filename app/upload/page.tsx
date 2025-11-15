@@ -26,17 +26,36 @@ export default function UploadPage() {
 
   return (
     <PageShell breadcrumbs={[{ label: "Home", href: "/" }, { label: "Upload dataset" }]}>
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Upload Dataset</h1>
-          <p className="text-gray-600">
-            Upload your ESG data in CSV or Excel format. Supported formats: .csv, .xlsx, .xls
+          <h1 className="text-3xl font-bold text-gray-900 mb-3">Upload Your ESG Data</h1>
+          <p className="text-lg text-gray-600 mb-2">
+            Start by uploading your ESG data in CSV or Excel format.
           </p>
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+            <p className="text-sm text-blue-800">
+              <strong>Supported formats:</strong> CSV (.csv), Excel (.xlsx, .xls)
+            </p>
+            <p className="text-sm text-blue-700 mt-2">
+              <strong>Example columns:</strong> isin, market_value, co2_emissions, employees, etc.
+            </p>
+          </div>
         </div>
 
         <FileUploadForm onUploadSuccess={handleUploadSuccess} />
 
-        <DatasetTable dataset={dataset} />
+        {dataset && (
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Dataset Preview</h2>
+            <DatasetTable dataset={dataset} />
+            <div className="mt-6 bg-green-50 border border-green-200 rounded-lg p-4">
+              <p className="text-green-800 font-medium mb-2">✓ Dataset uploaded successfully!</p>
+              <p className="text-sm text-green-700">
+                Next step: Go to <a href="/mappings" className="underline font-semibold">Mappings</a> to map your fields to ESRS taxonomy.
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </PageShell>
   );
