@@ -10,8 +10,11 @@ export default async function DashboardPage() {
   // Get latest dataset
   let latestDataset = null;
   let kpis = {};
+  let dbError = null;
   
   try {
+    // Test database connection first
+    await prisma.$connect();
     latestDataset = await prisma.dataset.findFirst({
       orderBy: { createdAt: "desc" },
       include: { fieldMappings: true },
@@ -22,7 +25,14 @@ export default async function DashboardPage() {
     }
   } catch (error) {
     console.error("Database error:", error);
+    dbError = error instanceof Error ? error.message : String(error);
     // Continue with empty state if database error
+  } finally {
+    try {
+      await prisma.$disconnect();
+    } catch (e) {
+      // Ignore disconnect errors
+    }
   }
 
   return (
@@ -37,9 +47,19 @@ export default async function DashboardPage() {
           </p>
         </div>
 
+        {dbError && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+            <p className="text-red-800 font-semibold">Database Connection Error</p>
+            <p className="text-red-700 text-sm mt-2">{dbError}</p>
+            <p className="text-red-600 text-xs mt-2">
+              Please check DATABASE_URL in Vercel environment variables.
+            </p>
+          </div>
+        )}
+
         <KpiCards kpis={kpis} />
 
-        {!latestDataset && (
+        {!latestDataset && !dbError && (
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
             <p className="text-yellow-800">
               No dataset found. Start by uploading your data to begin generating CSRD reports.
