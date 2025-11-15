@@ -45,37 +45,37 @@ export default async function ReportsPage() {
     <PageShell breadcrumbs={[{ label: "Home", href: "/" }, { label: "CSRD Reports" }]}>
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-white mb-2">CSRD Report Editor</h1>
-          <p className="text-sm text-gray-400 mb-3">
+          <h1 className="text-3xl font-semibold text-gray-900 mb-2">CSRD Report Editor</h1>
+          <p className="text-base text-gray-600 mb-4">
             Review, edit, and export your CSRD compliance report with E1 (Climate), S1 (Workforce), and G1 (Governance) sections.
           </p>
-          <div className="bg-gray-900 border border-gray-800 rounded-lg p-3">
-            <p className="text-xs text-gray-400">
-              <span className="text-green-500 font-semibold">Tip:</span> Use Preview mode to see how your report will look. 
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <p className="text-sm text-gray-700">
+              <span className="text-blue-600 font-semibold">Tip:</span> Use Preview mode to see how your report will look. 
               Switch to Edit mode to make changes. Export to PDF, HTML, or XBRL when ready.
             </p>
           </div>
         </div>
 
         {!dataset ? (
-          <div className="bg-gray-900 border border-gray-800 rounded-lg p-6 text-center">
-            <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-3">
-              <span className="text-2xl">📄</span>
+          <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-8 text-center">
+            <div className="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-3xl">📄</span>
             </div>
-            <h2 className="text-lg font-semibold text-white mb-2">No Data Available</h2>
-            <p className="text-sm text-gray-400 mb-4">
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">No Data Available</h2>
+            <p className="text-sm text-gray-600 mb-6">
               Upload data and map fields to ESRS first, then generate your CSRD report.
             </p>
-            <div className="flex justify-center space-x-3">
+            <div className="flex justify-center space-x-4">
               <a
                 href="/upload"
-                className="inline-flex items-center px-5 py-2.5 bg-green-500 text-black font-semibold rounded-lg hover:bg-green-400 transition-colors text-sm"
+                className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors shadow-sm"
               >
                 Upload Data
               </a>
               <a
                 href="/mappings"
-                className="inline-flex items-center px-5 py-2.5 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition-colors text-sm border border-gray-700"
+                className="inline-flex items-center px-6 py-3 bg-white text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition-colors border border-gray-300 shadow-sm"
               >
                 Map Fields
               </a>
