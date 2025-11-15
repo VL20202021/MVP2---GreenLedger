@@ -114,7 +114,7 @@ export function ReportEditor({ dataset, sections: initialSections }: ReportEdito
 
   if (!dataset) {
     return (
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
         <p className="text-gray-500 text-center py-8">
           No dataset found. Please upload and map data first.
         </p>
@@ -124,7 +124,7 @@ export function ReportEditor({ dataset, sections: initialSections }: ReportEdito
 
   if (sections.length === 0) {
     return (
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
         <p className="text-gray-500 text-center py-8">
           No report sections found. Please map your data fields first.
         </p>
@@ -187,7 +187,7 @@ export function ReportEditor({ dataset, sections: initialSections }: ReportEdito
             <button
               onClick={handleSave}
               disabled={saving}
-              className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed text-sm font-medium transition-colors"
+              className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed text-sm font-medium transition-colors shadow-sm"
             >
               {saving ? "Saving..." : "Save Changes"}
             </button>
@@ -226,7 +226,7 @@ export function ReportEditor({ dataset, sections: initialSections }: ReportEdito
           <div
             className={`mt-4 px-4 py-3 rounded-md ${
               message.type === "success"
-                ? "bg-green-50 border border-green-200 text-green-700"
+                ? "bg-blue-50 border border-blue-200 text-blue-700"
                 : "bg-red-50 border border-red-200 text-red-700"
             }`}
           >
@@ -262,7 +262,7 @@ export function ReportEditor({ dataset, sections: initialSections }: ReportEdito
         <div className="space-y-6">
           {sections.map((section) => (
             <div key={section.id} className="bg-white shadow-sm border border-gray-200 rounded-lg overflow-hidden">
-              <div className="bg-gradient-to-r from-green-50 to-blue-50 px-6 py-4 border-b border-gray-200">
+              <div className="bg-gradient-to-r from-blue-50 to-blue-100 px-6 py-4 border-b border-gray-200">
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
@@ -277,7 +277,7 @@ export function ReportEditor({ dataset, sections: initialSections }: ReportEdito
                   value={section.content}
                   onChange={(e) => handleContentChange(section.id, e.target.value)}
                   rows={20}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm leading-relaxed font-sans resize-y"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm leading-relaxed font-sans resize-y"
                   placeholder="Enter report content here. Use ## for headings, - for lists..."
                 />
                 <div className="mt-3 text-xs text-gray-500">

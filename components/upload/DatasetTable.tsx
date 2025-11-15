@@ -13,7 +13,7 @@ interface DatasetTableProps {
 export function DatasetTable({ dataset }: DatasetTableProps) {
   if (!dataset) {
     return (
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
         <p className="text-gray-500 text-center py-8">
           No dataset uploaded yet. Upload a file to see a preview.
         </p>
@@ -25,8 +25,8 @@ export function DatasetTable({ dataset }: DatasetTableProps) {
   const hasMore = dataset.rows.length > 5;
 
   return (
-    <div className="bg-white shadow rounded-lg p-6">
-      <h2 className="text-xl font-semibold mb-4">Dataset Preview</h2>
+    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-4">Dataset Preview</h2>
       <div className="mb-2 text-sm text-gray-600">
         <p>
           <strong>Name:</strong> {dataset.name}

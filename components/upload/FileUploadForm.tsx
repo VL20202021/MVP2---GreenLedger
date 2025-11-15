@@ -68,8 +68,8 @@ export function FileUploadForm({ onUploadSuccess }: FileUploadFormProps) {
   };
 
   return (
-    <div className="bg-white shadow rounded-lg p-6">
-      <h2 className="text-xl font-semibold mb-4">Upload Dataset</h2>
+    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-4">Upload Dataset</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -80,7 +80,7 @@ export function FileUploadForm({ onUploadSuccess }: FileUploadFormProps) {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             placeholder="Enter a name for this dataset"
           />
         </div>
@@ -94,7 +94,7 @@ export function FileUploadForm({ onUploadSuccess }: FileUploadFormProps) {
             id="file"
             accept=".csv,.xlsx,.xls"
             onChange={handleFileChange}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             disabled={uploading}
           />
           <p className="mt-1 text-sm text-gray-500">
@@ -109,7 +109,7 @@ export function FileUploadForm({ onUploadSuccess }: FileUploadFormProps) {
         )}
 
         {success && (
-          <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded">
+          <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded">
             File uploaded successfully!
           </div>
         )}
@@ -117,7 +117,7 @@ export function FileUploadForm({ onUploadSuccess }: FileUploadFormProps) {
         <button
           type="submit"
           disabled={!file || uploading}
-          className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium shadow-sm"
         >
           {uploading ? "Uploading..." : "Upload File"}
         </button>

@@ -126,7 +126,7 @@ export function MappingEditor({ dataset, existingMappings }: MappingEditorProps)
 
   if (!dataset) {
     return (
-      <div className="bg-white shadow rounded-lg p-6">
+      <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
         <p className="text-gray-500 text-center py-8">
           No dataset found. Please upload a dataset first.
         </p>
@@ -135,8 +135,8 @@ export function MappingEditor({ dataset, existingMappings }: MappingEditorProps)
   }
 
   return (
-    <div className="bg-white shadow rounded-lg p-6">
-      <h2 className="text-xl font-semibold mb-2">Map fields to ESRS (Green Ledger)</h2>
+    <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6">
+      <h2 className="text-xl font-semibold text-gray-900 mb-2">Map Fields to ESRS Taxonomy</h2>
       <p className="text-sm text-gray-600 mb-6">
         Map your dataset columns to ESRS taxonomy fields. This mapping will be used to generate
         CSRD reports.
@@ -146,7 +146,7 @@ export function MappingEditor({ dataset, existingMappings }: MappingEditorProps)
         <div
           className={`mb-4 px-4 py-3 rounded ${
             message.type === "success"
-              ? "bg-green-50 border border-green-200 text-green-700"
+              ? "bg-blue-50 border border-blue-200 text-blue-700"
               : "bg-red-50 border border-red-200 text-red-700"
           }`}
         >
@@ -179,7 +179,7 @@ export function MappingEditor({ dataset, existingMappings }: MappingEditorProps)
                     <select
                       value={currentMapping?.esrsCode || ""}
                       onChange={(e) => handleMappingChange(col.name, e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                     >
                       <option value="">-- No mapping --</option>
                       {ESRS_FIELDS.map((field) => (
@@ -200,14 +200,14 @@ export function MappingEditor({ dataset, existingMappings }: MappingEditorProps)
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium shadow-sm"
         >
           {saving ? "Saving..." : "Save Mappings"}
         </button>
         <button
           onClick={handleGenerateXbrl}
           disabled={generating || saving}
-          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed font-medium shadow-sm"
         >
           {generating ? "Generating..." : "Generate XBRL"}
         </button>
