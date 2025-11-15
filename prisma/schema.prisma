@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Dataset {
+  id        String   @id @default(cuid())
+  name      String
+  fileName  String
+  rows      Json     // Array of parsed data rows
+  columns   Json     // Array of { name: string, type: string }
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fieldMappings FieldMapping[]
+  reportSections ReportSection[]
+
+  @@map("datasets")
+}
+
+model FieldMapping {
+  id        String   @id @default(cuid())
+  datasetId String
+  fieldName String
+  esrsCode  String
+  esrsLabel String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  dataset Dataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+
+  @@map("field_mappings")
+}
+
+model ReportSection {
+  id        String   @id @default(cuid())
+  datasetId String?
+  sectionCode String // "E1", "S1", "G1", etc.
+  title     String
+  content   String   // Markdown/plain text content
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  dataset Dataset? @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+
+  @@map("report_sections")
+}
+

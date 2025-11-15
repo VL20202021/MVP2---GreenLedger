@@ -1,0 +1,139 @@
+import { ReportSectionInput } from "./types";
+import { Dataset, FieldMapping } from "@prisma/client";
+
+export function buildDefaultSections(
+  dataset: Dataset,
+  mappings: FieldMapping[]
+): ReportSectionInput[] {
+  const rows = dataset.rows as Record<string, string | number | null>[];
+  const sections: ReportSectionInput[] = [];
+
+  // E1 - Climate
+  const e1Mappings = mappings.filter((m) => m.esrsCode.startsWith("E"));
+  const e1Fields = e1Mappings.map((m) => m.fieldName).join(", ");
+  sections.push({
+    sectionCode: "E1",
+    title: "E1 – Climate-related disclosures",
+    content: `## Climate-related disclosures
+
+This section provides information on climate-related risks and opportunities.
+
+**Mapped data fields:** ${e1Fields || "None"}
+
+${e1Mappings.length > 0 ? `The following ESRS fields are mapped:
+${e1Mappings.map((m) => `- ${m.esrsCode}: ${m.esrsLabel} (from field: ${m.fieldName})`).join("\n")}` : "No environmental fields are currently mapped."}
+
+Please review and edit this content as needed.`,
+  });
+
+  // S1 - Workforce
+  const s1Mappings = mappings.filter((m) => m.esrsCode.startsWith("S"));
+  const s1Fields = s1Mappings.map((m) => m.fieldName).join(", ");
+  sections.push({
+    sectionCode: "S1",
+    title: "S1 – Workforce-related disclosures",
+    content: `## Workforce-related disclosures
+
+This section provides information on workforce and social matters.
+
+**Mapped data fields:** ${s1Fields || "None"}
+
+${s1Mappings.length > 0 ? `The following ESRS fields are mapped:
+${s1Mappings.map((m) => `- ${m.esrsCode}: ${m.esrsLabel} (from field: ${m.fieldName})`).join("\n")}` : "No social fields are currently mapped."}
+
+Please review and edit this content as needed.`,
+  });
+
+  // G1 - Governance
+  const g1Mappings = mappings.filter((m) => m.esrsCode.startsWith("G"));
+  const g1Fields = g1Mappings.map((m) => m.fieldName).join(", ");
+  sections.push({
+    sectionCode: "G1",
+    title: "G1 – Governance-related disclosures",
+    content: `## Governance-related disclosures
+
+This section provides information on governance structure and policies.
+
+**Mapped data fields:** ${g1Fields || "None"}
+
+${g1Mappings.length > 0 ? `The following ESRS fields are mapped:
+${g1Mappings.map((m) => `- ${m.esrsCode}: ${m.esrsLabel} (from field: ${m.fieldName})`).join("\n")}` : "No governance fields are currently mapped."}
+
+Please review and edit this content as needed.`,
+  });
+
+  return sections;
+}
+
+export function buildHtmlReport(
+  sections: Array<{ sectionCode: string; title: string; content: string }>,
+  kpis: { totalEmissions?: number; totalEmployees?: number; governancePoints?: number },
+  meta: { entityName: string; period: { start: string; end: string } }
+): string {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green Ledger – CSRD Report</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 { color: #059669; border-bottom: 2px solid #059669; padding-bottom: 10px; }
+    h2 { color: #047857; margin-top: 30px; }
+    .meta { background: #f3f4f6; padding: 15px; border-radius: 5px; margin-bottom: 30px; }
+    .kpi-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .kpi-table th, .kpi-table td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+    .kpi-table th { background: #f9fafb; font-weight: 600; }
+    .section { margin-bottom: 40px; }
+    .content { white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Green Ledger – CSRD Report</h1>
+  
+  <div class="meta">
+    <p><strong>Entity:</strong> ${meta.entityName}</p>
+    <p><strong>Reporting Period:</strong> ${meta.period.start} to ${meta.period.end}</p>
+    <p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p>
+  </div>
+
+  <h2>Key Performance Indicators</h2>
+  <table class="kpi-table">
+    <thead>
+      <tr>
+        <th>Metric</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${kpis.totalEmissions !== undefined ? `<tr><td>Total GHG Emissions (E1-1)</td><td>${kpis.totalEmissions.toLocaleString()}</td></tr>` : ""}
+      ${kpis.totalEmployees !== undefined ? `<tr><td>Total Employees (S1-1)</td><td>${kpis.totalEmployees.toLocaleString()}</td></tr>` : ""}
+      ${kpis.governancePoints !== undefined ? `<tr><td>Governance Data Points</td><td>${kpis.governancePoints}</td></tr>` : ""}
+    </tbody>
+  </table>
+
+  ${sections
+    .map(
+      (section) => `
+    <div class="section">
+      <h2>${section.title}</h2>
+      <div class="content">${section.content.replace(/\n/g, "<br>")}</div>
+    </div>
+  `
+    )
+    .join("")}
+
+  <footer style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; color: #6b7280; text-align: center;">
+    <p>Generated by Green Ledger</p>
+  </footer>
+</body>
+</html>`;
+}
+
