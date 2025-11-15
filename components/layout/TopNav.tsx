@@ -14,7 +14,7 @@ export function TopNav() {
                 Green Ledger
               </span>
             </Link>
-            <div className="hidden sm:ml-8 sm:flex sm:space-x-1">
+            <div className="hidden sm:ml-8 sm:flex lg:hidden sm:space-x-1">
               <Link
                 href="/"
                 className="text-gray-300 hover:text-white hover:bg-gray-900 inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors"
